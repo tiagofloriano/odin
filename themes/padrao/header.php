@@ -1,0 +1,288 @@
+<?php
+/**
+ * Cabeçalho e estrutura principal do tema padrão do Odin.
+ *
+ * Exibe o menu lateral, a identificação do sistema e o início
+ * da área de conteúdo. O rodapé fecha a estrutura HTML.
+ */
+?>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Odin | Painel</title>
+
+    <!-- Bootstrap 5.3.8: versão estável. -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <!-- Carrega o jQuery. -->
+    <script src="https://code.jquery.com/jquery-4.0.0.min.js"></script>
+
+    <!-- Componentes JavaScript do Bootstrap. -->
+    <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        defer
+    ></script>
+
+    <style>
+        /* Cores principais do tema. */
+        :root {
+            --odin-sidebar: #172033;
+            --odin-sidebar-hover: #25334d;
+            --odin-accent: #6d8cff;
+            --odin-background: #f4f6fa;
+            --odin-text: #263247;
+            --odin-muted: #8b96a9;
+        }
+
+        /* Configurações gerais. */
+        body {
+            background: var(--odin-background);
+            color: var(--odin-text);
+            font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+            font-size: 0.95rem;
+        }
+
+        /* Menu lateral. */
+        .odin-sidebar {
+            background: var(--odin-sidebar);
+            color: #fff;
+            min-height: 100vh;
+            padding: 1.5rem 1rem;
+        }
+
+        /* Identidade visual do Odin. */
+        .odin-brand {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: #fff;
+            text-decoration: none;
+            padding: 0.5rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .odin-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 42px;
+            height: 42px;
+            border-radius: 13px;
+            background: var(--odin-accent);
+            color: #fff;
+            font-size: 1.5rem;
+            font-weight: 800;
+        }
+
+        .odin-brand-name {
+            font-size: 1.4rem;
+            font-weight: 700;
+            letter-spacing: 0.02em;
+        }
+
+        .odin-brand-subtitle {
+            display: block;
+            color: #aab5ca;
+            font-size: 0.7rem;
+            font-weight: 400;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+		
+       /* Títulos das seções do menu. */
+        .odin-menu-label {
+            color: var(--odin-muted);
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            margin: 1.5rem 0 0.6rem 0.75rem;
+            text-transform: uppercase;
+        }
+
+        /* Links do menu. */
+        .odin-menu-link {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: #c5cede;
+            text-decoration: none;
+            padding: 0.8rem 0.9rem;
+            margin-bottom: 0.3rem;
+            border-radius: 10px;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        .odin-menu-link:hover,
+        .odin-menu-link.active {
+            background: var(--odin-sidebar-hover);
+            color: #fff;
+        }
+
+        .odin-menu-link.active {
+            box-shadow: inset 3px 0 var(--odin-accent);
+        }
+
+        .odin-menu-icon {
+            display: inline-flex;
+            justify-content: center;
+            width: 22px;
+            font-size: 1.1rem;
+        }
+
+        /* Coluna principal. */
+        .odin-content-column {
+            min-width: 0;
+        }
+
+        /* Barra superior da área de conteúdo. */
+        .odin-topbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            min-height: 82px;
+            padding: 1rem 2rem;
+            background: #fff;
+            border-bottom: 1px solid #e8ebf2;
+        }
+
+        .odin-page-heading {
+            margin: 0;
+            font-size: 1.15rem;
+            font-weight: 700;
+        }
+
+        .odin-page-subtitle {
+            margin: 0.25rem 0 0;
+            color: #8791a3;
+            font-size: 0.85rem;
+        }
+
+        .odin-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #536176;
+            font-size: 0.85rem;
+        }
+
+        .odin-status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #26b887;
+        }
+
+        /* Área onde a página será incluída. */
+        .odin-main {
+            padding: 2rem;
+            min-height: calc(100vh - 150px);
+        }
+		
+        /* Rodapé. */
+        .odin-footer {
+            padding: 1.25rem 2rem;
+            border-top: 1px solid #e8ebf2;
+            color: #8791a3;
+            font-size: 0.8rem;
+        }
+
+        /* Adaptação para celulares. */
+        @media (max-width: 767.98px) {
+            .odin-sidebar {
+                min-height: auto;
+                padding: 1rem;
+            }
+
+            .odin-brand {
+                margin-bottom: 1rem;
+            }
+
+            .odin-menu-label {
+                margin-top: 0.75rem;
+            }
+
+            .odin-topbar {
+                min-height: auto;
+                padding: 1.25rem;
+            }
+
+            .odin-main {
+                padding: 1.25rem;
+            }
+
+            .odin-footer {
+                padding: 1rem 1.25rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container-fluid p-0">
+    <div class="row g-0 min-vh-100">
+
+        <!-- Menu lateral esquerdo. -->
+        <aside class="col-md-3 col-lg-2 odin-sidebar">
+
+            <!-- Marca do sistema. Substitua o O por uma imagem se desejar. -->
+            <a href="?home" class="odin-brand">
+                <span>
+                    <span class="odin-brand-name">Odin</span>
+                    <span class="odin-brand-subtitle">Sistema de gestão</span>
+                </span>
+            </a>
+
+            <!-- Navegação principal. -->
+            <nav aria-label="Menu principal">
+
+                <div class="odin-menu-label">Menu</div>
+
+                <a href="?home" class="odin-menu-link active">
+                    <span class="odin-menu-icon">⌂</span>
+                    <span>Início</span>
+                </a>
+
+                <!--
+                    Insira aqui os menus dinâmicos do Odin,
+                    conforme as permissões do usuário.
+                -->
+
+            </nav>
+
+            <!-- Ação de saída. -->
+            <div class="mt-4 pt-3 border-top border-secondary">
+                <a href="?sair" class="odin-menu-link">
+                    <span class="odin-menu-icon">↪</span>
+                    <span>Sair do sistema</span>
+                </a>
+            </div>
+
+        </aside>
+
+        <!-- Coluna direita: cabeçalho, conteúdo e rodapé. -->
+        <div class="col-md-9 col-lg-10 odin-content-column">
+
+            <header class="odin-topbar">
+                <div>
+                    <h1 class="odin-page-heading">Painel de controle</h1>
+                    <p class="odin-page-subtitle">
+                        Bem-vindo ao Odin
+                    </p>
+                </div>
+
+                <div class="odin-status">
+                    <span class="odin-status-dot"></span>
+                        <?= $_SESSION["odin_usuario"] ?>
+                </div>
+            </header>
+			
+            <!-- O conteúdo de url() será inserido abaixo. -->
+            <main class="odin-main">
