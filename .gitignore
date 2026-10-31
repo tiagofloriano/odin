@@ -1,0 +1,4 @@
+# Configurações locais e credenciais
+*~
+/inc/config.php
+/inc/installed.lock

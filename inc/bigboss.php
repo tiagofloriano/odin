@@ -292,8 +292,19 @@ function upd($tabela, $dados, $condicoes, $con = false) {
 }
 
 /**
-CREATE TABLE IF NOT EXISTS usuarios ( id INT(11) AUTO_INCREMENT, usuario VARCHAR(20), senha VARCHAR(128), PRIMARY KEY(id) );
-CREATE TABLE IF NOT EXISTS sessoes ( id INT(11) AUTO_INCREMENT, usuario VARCHAR(20), sessao VARCHAR(128), PRIMARY KEY(id) );
+CREATE TABLE IF NOT EXISTS usuarios (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    usuario VARCHAR(50) NOT NULL UNIQUE,
+    senha VARCHAR(255) NOT NULL,
+    admin TINYINT(1) NOT NULL DEFAULT 0
+);
+CREATE TABLE IF NOT EXISTS sessoes ( 
+	id INT(11) AUTO_INCREMENT, 
+	usuario VARCHAR(20), 
+	sessao VARCHAR(128), 
+	PRIMARY KEY(id) 
+);
 
 -- Armazena o hash da senha do usuário.
 ALTER TABLE usuarios
@@ -327,7 +338,7 @@ function login($usuario, $senha, $destino) {
 
     // Busca o usuário pelo nome.
     $stmt = $pdo->prepare(
-        'SELECT usuario, senha FROM usuarios WHERE usuario = ? LIMIT 1'
+        'SELECT id, nome, usuario, senha FROM usuarios WHERE usuario = ? LIMIT 1'
     );
     $stmt->execute([$usuario]);
 

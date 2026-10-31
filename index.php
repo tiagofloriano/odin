@@ -6,6 +6,12 @@ session_start();
  * Carrega a Bigboss, inicializa o banco de dados,
  * processa o login e apresenta o tema conforme a autenticação.
  */
+ 
+ // Verifica se o Odin já foi instalado.
+if (!is_file(__DIR__ . '/inc/installed.lock')) {
+    require __DIR__ . '/install.php';
+    exit;
+}
 
 // Carrega as funções da Bigboss.
 require_once __DIR__ . '/inc/bigboss.php';

@@ -62,8 +62,8 @@
             letter-spacing: 0.08em;
             text-transform: uppercase;
         }
-
-        /* Títulos das seções do menu. */
+		
+       /* Títulos das seções do menu. */
         .odin-menu-label {
             color: var(--odin-muted);
             font-size: 0.7rem;
@@ -152,7 +152,7 @@
             padding: 2rem;
             min-height: calc(100vh - 150px);
         }
-
+		
         /* Rodapé. */
         .odin-footer {
             padding: 1.25rem 2rem;
