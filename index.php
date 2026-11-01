@@ -20,6 +20,9 @@ require_once __DIR__ . '/inc/bigboss.php';
 // Esse arquivo deve definir a conexão PDO e selecionar o banco.
 require_once __DIR__ . '/inc/config.php';
 
+// Carrega as classes e funções específicas do Odin
+require_once __DIR__ . '/inc/odin.php';
+
 // Processa o formulário de login enviado por POST.
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $usuario = $_POST['usuario'] ?? '';

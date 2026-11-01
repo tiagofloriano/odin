@@ -291,31 +291,6 @@ function upd($tabela, $dados, $condicoes, $con = false) {
     return $stmt->rowCount();
 }
 
-/**
-CREATE TABLE IF NOT EXISTS usuarios (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    nome VARCHAR(100) NOT NULL,
-    usuario VARCHAR(50) NOT NULL UNIQUE,
-    senha VARCHAR(255) NOT NULL,
-    admin TINYINT(1) NOT NULL DEFAULT 0
-);
-CREATE TABLE IF NOT EXISTS sessoes ( 
-	id INT(11) AUTO_INCREMENT, 
-	usuario VARCHAR(20), 
-	sessao VARCHAR(128), 
-	PRIMARY KEY(id) 
-);
-
--- Armazena o hash da senha do usuário.
-ALTER TABLE usuarios
-MODIFY senha VARCHAR(255) NOT NULL;
-
--- Armazena o usuário e o hash do token da sessão.
-ALTER TABLE sessoes
-MODIFY usuario VARCHAR(20) NOT NULL,
-MODIFY sessao CHAR(64) NOT NULL;
-**/
-
 
 /**
  * Autentica um usuário e cria uma sessão.
@@ -338,7 +313,7 @@ function login($usuario, $senha, $destino) {
 
     // Busca o usuário pelo nome.
     $stmt = $pdo->prepare(
-        'SELECT id, nome, usuario, senha FROM usuarios WHERE usuario = ? LIMIT 1'
+        'SELECT id, nome, usuario, senha, pontodeacesso, admin FROM usuarios WHERE usuario = ? LIMIT 1'
     );
     $stmt->execute([$usuario]);
 
@@ -397,7 +372,8 @@ function login($usuario, $senha, $destino) {
     $_SESSION['odin_usuarioid'] = $dados['id'];
     $_SESSION['odin_usuario'] = $usuario;
     $_SESSION['odin_usuarionome'] = $dados['nome'];
-    //echo "nome: ".$dados['nome']; exit;
+    $_SESSION['odin_pontodeacesso'] = $dados['pontodeacesso'];
+    $_SESSION['odin_admin'] = $dados['admin'];
     $_SESSION['odin_token'] = $token;
 
     // Redireciona para a página indicada.
@@ -505,7 +481,8 @@ function logoff($destino = false) {
 
     // Redireciona se um destino tiver sido informado.
     if ($destino !== false && $destino !== '') {
-        header('Location: ' . $destino);
+        //header('Location: ' . $destino);
+        echo "<meta http-equiv='refresh' content='0;URL=$destino'>";
         exit;
     }
 }

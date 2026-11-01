@@ -7,18 +7,12 @@
  */
 ?>
 
-            </main>
-
-            <footer class="odin-footer d-flex flex-wrap justify-content-between gap-2">
-                <span>Odin &copy; <?= date('Y') ?></span>
-                <span>Sistema de gestão</span>
-            </footer>
-
+				</main>
         </div>
-        <!-- Fim da coluna direita. -->
-
     </div>
-    <!-- Fim da linha principal. -->
 </div>
 
+<!-- Bootstrap JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+</html>

@@ -1,104 +1,165 @@
-<?php
-/**
- * Cabeçalho e estrutura principal do tema padrão do Odin.
- *
- * Exibe o menu lateral, a identificação do sistema e o início
- * da área de conteúdo. O rodapé fecha a estrutura HTML.
- */
-?>
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Odin</title>
 
-    <title>Odin | Painel</title>
+    <!-- Bootstrap 5.3.8 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Bootstrap 5.3.8: versão estável. -->
-    <link
-        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
-        rel="stylesheet"
-    >
-    
-	 <!-- Font Awesome -->
-	 <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
-	 
-	 <!-- CSS do tema -->
-	 <link rel="stylesheet"
-        href="themes/padrao/css.css">
+    <!-- Tema de cores -->
+    <link href="themes/padrao/css.css" rel="stylesheet">
 
-    <!-- Carrega o jQuery. -->
-    <script src="https://code.jquery.com/jquery-4.0.0.min.js"></script>
+    <!-- Tema de cores específicas do layout -->
+    <link href="themes/padrao/layout.css" rel="stylesheet">
 
-    <!-- Componentes JavaScript do Bootstrap. -->
-    <script
-        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-        defer
-    ></script>
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/90c0082b73.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
 
-<div class="container-fluid p-0">
-    <div class="row g-0 min-vh-100">
+<div class="container-fluid">
+    <div class="row min-vh-100">
 
-        <!-- Menu lateral esquerdo. -->
-        <aside class="col-md-3 col-lg-2 odin-sidebar">
+        <!-- MENU LATERAL -->
+        <aside
+            class="col-md-3 col-lg-2 offcanvas-md offcanvas-start bg-dark text-white p-0"
+            tabindex="-1"
+            id="menuLateral"
+            aria-labelledby="tituloSistema"
+        >
 
-            <!-- Marca do sistema. Substitua o O por uma imagem se desejar. -->
-            <a href="?home" class="odin-brand">
-                <span>
-                    <span class="odin-brand-name">Odin</span>
-                    <span class="odin-brand-subtitle">Sistema de gestão</span>
-                </span>
-            </a>
+            <!-- Cabeçalho da lateral -->
+            <div class="offcanvas-header border-bottom border-secondary p-3">
+                <h5 class="offcanvas-title" id="tituloSistema">
+                    <i class="fa-solid fa-mug-hot"></i>
+                    Odin
+                </h5>
 
-            <!-- Navegação principal. -->
-            <nav aria-label="Menu principal">
+					<button
+					    type="button"
+					    class="btn-close btn-close-white d-md-none"
+					    data-bs-dismiss="offcanvas"
+					    data-bs-target="#menuLateral"
+					    aria-label="Fechar menu"
+					></button>
+            </div>
 
-                <div class="odin-menu-label">Menu</div>
+            <!-- Conteúdo do menu -->
+            <div class="offcanvas-body d-block p-3">
 
-                <a href="?home" class="odin-menu-link active">
-                    <i class="fa-solid fa-house"></i>
-                    <span>Início</span>
-                </a>
+                <!-- Categoria -->
+                <div class="text-uppercase text-secondary small fw-bold mb-2">
+                    Geral
+                </div>
 
-                <a href="?sair" class="odin-menu-link">
-                    <i class="fa-solid fa-user-gear"></i>
-                    <span>Meus dados</span>
-                </a>
+                <nav class="nav nav-pills flex-column mb-4">
+                    <a href="?home" class="nav-link text-white active">
+                        <i class="fa-solid fa-house fa-fw me-2"></i>
+                        Início
+                    </a>
+                    <a href="?perfil" class="nav-link text-white">
+                        <i class="fa-solid fa-user fa-fw me-2"></i>
+                        Meu perfil
+                    </a>
+                    <a href="?sair" class="nav-link text-white">
+                        <i class="fa-solid fa-user fa-fw me-2"></i>
+                        Sair do sistema
+                    </a>
+                </nav>
 
-                <a href="?sair" class="odin-menu-link">
-                    <i class="fa-solid fa-right-from-bracket"></i>
-                    <span>Sair do sistema</span>
-                </a>
+					<?php
+					if(user_info('admin')){
+					?>
+                <!-- Categoria -->
+                <div class="text-uppercase text-secondary small fw-bold mb-2">
+                    Administração
+                </div>
 
-                <!--
-                    Insira aqui os menus dinâmicos do Odin,
-                    conforme as permissões do usuário.
-                -->
+                <nav class="nav nav-pills flex-column mb-4">
+                    <a href="?usuarios" class="nav-link text-white">
+                        <i class="fa-solid fa-users fa-fw me-2"></i>
+                        Usuários
+                    </a>
+                    <a href="?acessos" class="nav-link text-white">
+                        <i class="fa-solid fa-key fa-fw me-2"></i>
+                        Pontos de acesso
+                    </a>
+                    <a href="?menus" class="nav-link text-white">
+                        <i class="fa-solid fa-list fa-fw me-2"></i>
+                        Grupos de menus
+                    </a>
+                    <a href="?editor" class="nav-link text-white">
+                        <i class="fa-solid fa-code fa-fw me-2"></i>
+                        Editor de código
+                    </a>
+                    <a href="?formbuilder" class="nav-link text-white">
+                        <i class="fa-solid fa-database fa-fw me-2"></i>
+                        Form builder
+                    </a>
+                </nav>
+					<?php
+					}
+					menu();
+					?>
 
-            </nav>
-
+            </div>
         </aside>
 
-        <!-- Coluna direita: cabeçalho, conteúdo e rodapé. -->
-        <div class="col-md-9 col-lg-10 odin-content-column">
+        <!-- ÁREA PRINCIPAL -->
+        <div class="col-md-9 col-lg-10 p-0">
 
-            <header class="odin-topbar">
-                <div>
-                    <h1 class="odin-page-heading">Painel de controle</h1>
-                    <p class="odin-page-subtitle">
-                        Bem-vindo ao Odin
-                    </p>
+            <!-- BARRA SUPERIOR -->
+            <header class="navbar bg-body border-bottom px-3 py-2">
+
+                <div class="d-flex align-items-center gap-3">
+
+                    <!-- Botão mobile -->
+                    <button
+                        class="btn btn-outline-padrao d-md-none"
+                        type="button"
+                        data-bs-toggle="offcanvas"
+                        data-bs-target="#menuLateral"
+                        aria-controls="menuLateral"
+                        aria-label="Abrir menu"
+                    >
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+
+                    <h5 class="mb-0">Painel de controle</h5>
+
                 </div>
 
-                <div class="odin-status">
-                    <span class="odin-status-dot"></span>
-                        <?= $_SESSION["odin_usuario"] ?>
+                <div class="dropdown">
+                    <button
+                        class="btn btn-outline-padrao dropdown-toggle"
+                        type="button"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
+                    >
+                        <i class="fa-solid fa-user-circle me-1"></i>
+                        Tiago
+                    </button>
+
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li>
+                            <a class="dropdown-item" href="?perfil">
+                                Meu perfil
+                            </a>
+                        </li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li>
+                            <a class="dropdown-item" href="?sair">
+                                Sair
+                            </a>
+                        </li>
+                    </ul>
                 </div>
+
             </header>
-			
-            <!-- O conteúdo de url() será inserido abaixo. -->
-            <main class="odin-main">
+
+            <!-- CONTEÚDO -->
+            <main class="p-3 p-md-4">

@@ -62,6 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         nome VARCHAR(100) NOT NULL,
                         usuario VARCHAR(50) NOT NULL UNIQUE,
                         senha VARCHAR(255) NOT NULL,
+                        pontodeacesso INT(4) NOT NULL,
                         admin TINYINT(1) NOT NULL DEFAULT 0
                     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4
                 ");
@@ -74,6 +75,41 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         sessao CHAR(64) NOT NULL
                     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4
                 ");
+
+                // Cria a tabela de menus.
+                $pdo->exec("
+							CREATE TABLE IF NOT EXISTS menus (
+							    id INT AUTO_INCREMENT PRIMARY KEY,
+							    label TEXT NULL,
+							    link TEXT NULL,
+							    menusuperior INT(11) NOT NULL DEFAULT 0,
+							    pontodeacesso INT(11) NULL,
+							    icone VARCHAR(100) NULL
+							) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+                ");
+
+                // Cria a tabela de pontos de acesso.
+                $pdo->exec("
+							CREATE TABLE IF NOT EXISTS pontodeacesso (
+							    id INT AUTO_INCREMENT PRIMARY KEY,
+							    nome TEXT NOT NULL,
+							    dominio TEXT NOT NULL,
+							    logoimg VARCHAR(200) NULL,
+							    homepage VARCHAR(50) DEFAULT '?home',
+							    aceitacadastro INT(1) NOT NULL DEFAULT 0,
+							    status INT(1) NOT NULL DEFAULT 1
+							) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+                ");
+                
+                $consulta = $pdo->prepare("
+                    INSERT INTO pontodeacesso (nome, dominio)
+                    VALUES (:nome, :dominio)
+                ");
+
+                $consulta->execute([
+                    'nome' => 'Odin',
+                    'senha' => 'localhost'
+                ]);
 
                 // Verifica se o usuário administrador já existe.
                 $consulta = $pdo->prepare(
@@ -89,8 +125,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $senhaHash = password_hash($senhaAdmin, PASSWORD_DEFAULT);
 
                 $consulta = $pdo->prepare("
-                    INSERT INTO usuarios (nome, usuario, senha, admin)
-                    VALUES (:nome, :usuario, :senha, 1)
+                    INSERT INTO usuarios (nome, usuario, senha, pontodeacesso, admin)
+                    VALUES (:nome, :usuario, :senha, 1, 1)
                 ");
 
                 $consulta->execute([

@@ -1,0 +1,48 @@
+
+/* Lateral do Odin */
+#menuLateral {
+    background-color: #172033 !important;
+    color: #fff;
+}
+
+/* Nome do sistema */
+#menuLateral .offcanvas-header {
+    min-height: 65px;
+}
+
+/* Links do menu */
+#menuLateral .nav-link {
+    color: #d5d9e2 !important;
+    border-radius: .5rem;
+    margin-bottom: .2rem;
+}
+
+#menuLateral .nav-link:hover {
+    background-color: #25334d;
+    color: #fff !important;
+}
+
+/* Link ativo */
+#menuLateral .nav-link.active {
+    background-color: var(--bs-primary);
+    color: #fff !important;
+}
+
+/* Barra superior */
+header.navbar {
+    min-height: 65px;
+}
+
+/* Lateral em telas grandes */
+@media (min-width: 768px) {
+    #menuLateral {
+        min-height: 100vh;
+        border: 0 !important;
+        border-radius: 0 !important;
+        box-shadow: none !important;
+    }
+    /* Mantém o cabeçalho (nome do sistema) visível também no desktop */
+    #menuLateral .offcanvas-header {
+        display: flex;
+    }
+}
