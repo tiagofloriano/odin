@@ -102,6 +102,56 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 							    status INT(1) NOT NULL DEFAULT 1
 							) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
                 ");
+
+                // Cria a tabela de formulários
+                $pdo->exec("
+							CREATE TABLE IF NOT EXISTS formularios (
+							    id INT AUTO_INCREMENT PRIMARY KEY,
+								 chave varchar(128) NOT NULL,
+								 nome varchar(100) NOT NULL,
+								 descricao text,
+								 tabela_destino varchar(100) NOT NULL,
+								 where_personalizado text,
+								 orderby_personalizado text,
+								 criado_em timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+								 jspersonalizado text,
+								 permissaoexcluir int(1) DEFAULT '1',
+								 permissaopontodeacesso text,
+								 permissaogrupo text,
+								 permissaousuario text,
+								 urlpersonalizada text
+							) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+                ");
+
+                // Cria a tabela de campos de formulários
+                $pdo->exec("
+							CREATE TABLE IF NOT EXISTS formularios (
+							    id INT AUTO_INCREMENT PRIMARY KEY,
+								 formulario_id int(11) NOT NULL,
+								 campo_destino varchar(100) NOT NULL,
+								 tipo enum('text','textarea','select','radio','checkbox','date','imagem','hidden','datetime') NOT NULL,
+								 label varchar(100) NOT NULL,
+								 obrigatorio tinyint(1) DEFAULT '0',
+								 origem_opcoes text,
+								 tabela_origem varchar(100) DEFAULT NULL,
+								 coluna varchar(100) DEFAULT NULL,
+								 valor text,
+								 where_personalizado text,
+								 listavel int(1) DEFAULT 1,
+								 editavel int(1) DEFAULT 1
+							) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+                ");
+
+                // Cria a tabela de opcoes campos de formulários do tipo select, radio ou checkbox
+                $pdo->exec("
+							CREATE TABLE IF NOT EXISTS formularios (
+							    id INT AUTO_INCREMENT PRIMARY KEY,
+								 campo_id int(11) DEFAULT NULL,
+								 valor text,
+								 label text
+							) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+                ");
+                
                 
                 $consulta = $pdo->prepare("
                     INSERT INTO pontodeacesso (nome, dominio)

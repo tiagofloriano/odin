@@ -104,7 +104,7 @@
                         <i class="fa-solid fa-code fa-fw me-2"></i>
                         Editor de código
                     </a>
-                    <a href="?formbuilder" class="nav-link text-white">
+                    <a href="?forms" class="nav-link text-white">
                         <i class="fa-solid fa-database fa-fw me-2"></i>
                         Form builder
                     </a>

@@ -5,7 +5,6 @@
  * @author Tiago Floriano <tiago@abfisica.org.br>
  * @copyright 2021-2026 Tiago Floriano
  * @license GPL v2
- * @version 2.0.1
  * @link https://github.com/tiagofloriano/bigboss
  */
 
@@ -290,6 +289,69 @@ function upd($tabela, $dados, $condicoes, $con = false) {
     // Retorna a quantidade de registros afetados.
     return $stmt->rowCount();
 }
+
+
+/**
+ * Exclui registros de uma tabela utilizando condições.
+ *
+ * @param string $tabela Nome da tabela.
+ * @param array $condicoes Condições associativas para o WHERE.
+ * @param PDO|false $con Conexão PDO opcional.
+ * @return int Quantidade de registros excluídos.
+ * @throws InvalidArgumentException Se os parâmetros forem inválidos.
+ * @throws RuntimeException Se a conexão não estiver disponível.
+ */
+function del($tabela, $condicoes, $con = false) {
+
+    // Recupera a conexão padrão.
+    if ($con === false) {
+        global $pdo;
+        $con = $pdo ?? null;
+    }
+
+    if (!$con instanceof PDO) {
+        throw new RuntimeException('Conexão com o banco de dados indisponível.');
+    }
+
+    // Valida o nome da tabela.
+    if (!is_string($tabela) || !preg_match('/\A[a-zA-Z0-9_]+\z/', $tabela)) {
+        throw new InvalidArgumentException('Nome de tabela inválido.');
+    }
+
+    // Impede exclusões sem condições.
+    if (!is_array($condicoes) || empty($condicoes)) {
+        throw new InvalidArgumentException('É necessário informar condições para excluir registros.');
+    }
+
+    $where = [];
+    $valores = [];
+
+    // Monta as condições do WHERE.
+    foreach ($condicoes as $campo => $valor) {
+
+        // Valida o nome da coluna.
+        if (!is_string($campo) || !preg_match('/\A[a-zA-Z0-9_]+\z/', $campo)) {
+            throw new InvalidArgumentException('Nome de coluna inválido.');
+        }
+
+        // Trata valores nulos.
+        if ($valor === null) {
+            $where[] = "`$campo` IS NULL";
+        } else {
+            $where[] = "`$campo` = ?";
+            $valores[] = $valor;
+        }
+    }
+
+    // Monta e executa a exclusão.
+    $sql = "DELETE FROM `$tabela` WHERE " . implode(' AND ', $where);
+
+    $stmt = $con->prepare($sql);
+    $stmt->execute($valores);
+
+    return $stmt->rowCount();
+}
+
 
 
 /**
