@@ -11,7 +11,8 @@ function user_info($campo) {
         'usuario' => $_SESSION['odin_usuario'] ?? null,
         'nome' => $_SESSION['odin_usuarionome'] ?? null,
         'pontodeacesso' => $_SESSION['odin_pontodeacesso'] ?? null,
-        'admin' => $_SESSION['odin_admin'] ?? false
+        'admin' => $_SESSION['odin_admin'] ?? false,
+        'escala_fonte' => $_SESSION['odin_escalafonte'] ?? false
     ];
 
     return $dados[$campo] ?? null;

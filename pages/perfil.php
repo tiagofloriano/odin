@@ -44,6 +44,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         // Limita a escala aos valores permitidos.
         $escala = max(70, min(120, $escala));
+        
+        $_SESSION['odin_escalafonte'] = $escala;
 
         upd(
             'usuarios',

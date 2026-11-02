@@ -313,7 +313,7 @@ function login($usuario, $senha, $destino) {
 
     // Busca o usuário pelo nome.
     $stmt = $pdo->prepare(
-        'SELECT id, nome, usuario, senha, pontodeacesso, admin FROM usuarios WHERE usuario = ? LIMIT 1'
+        'SELECT id, nome, usuario, senha, pontodeacesso, admin, escala_fonte, status FROM usuarios WHERE usuario = ? AND status = 1 LIMIT 1'
     );
     $stmt->execute([$usuario]);
 
@@ -374,6 +374,7 @@ function login($usuario, $senha, $destino) {
     $_SESSION['odin_usuarionome'] = $dados['nome'];
     $_SESSION['odin_pontodeacesso'] = $dados['pontodeacesso'];
     $_SESSION['odin_admin'] = $dados['admin'];
+    $_SESSION['odin_escalafonte'] = $dados['escala_fonte'];
     $_SESSION['odin_token'] = $token;
 
     // Redireciona para a página indicada.

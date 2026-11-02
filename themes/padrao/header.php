@@ -18,8 +18,7 @@
     <script src="https://kit.fontawesome.com/90c0082b73.js" crossorigin="anonymous"></script>
     
     <?php
-	 $usuario = sel('usuarios', ['id' => user_info('id')], false, 1);
- 	 $escalaFonte = (int) ($usuario[0]['escala_fonte'] ?? 100);
+ 	 $escalaFonte = (int) (user_info('escala_fonte'));
  	 ?>
 	
 	 <style>
@@ -30,7 +29,6 @@
 </head>
 
 <body>
-
 <div class="container-fluid">
     <div class="row min-vh-100">
 
