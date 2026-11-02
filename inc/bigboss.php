@@ -798,3 +798,35 @@ function gerauf($tipo = 'options', $selecione = '', $selecionada = '') {
         echo '</select>';
     }
 }
+
+/**
+ * Gera ou verifica o token de proteção CSRF.
+ *
+ * @param int $form 0 para gerar campo oculto, 1 para validar envio.
+ * @return string|bool Campo HTML ou resultado da validação.
+ */
+function csrf($form = 0) {
+
+    // Garante a existência do token na sessão.
+    if (empty($_SESSION['csrf_token'])) {
+        $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+    }
+
+    // Gera o campo oculto para o formulário.
+    if ($form === 0) {
+        return '<input type="hidden" name="csrf_token" value="' .
+            htmlspecialchars($_SESSION['csrf_token'], ENT_QUOTES, 'UTF-8') .
+            '">';
+    }
+
+    // Verifica o token enviado pelo formulário.
+    if ($form === 1) {
+
+        $token = $_POST['csrf_token'] ?? '';
+
+        return is_string($token) &&
+            hash_equals($_SESSION['csrf_token'], $token);
+    }
+
+    return false;
+}
