@@ -217,6 +217,10 @@ html {
   background: var(--bs-body-bg);
 }
 
+.nomeponto {
+	text-transform: uppercase;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .btn-padrao, .btn-outline-padrao, .bct-interactive, .link-padrao, .link-theme-fill { transition: none !important; transform: none !important; }
   .btn-padrao::after, .btn-outline-padrao::after, .link-theme-fill::before { transition: none !important; }
