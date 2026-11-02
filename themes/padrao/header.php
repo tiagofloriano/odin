@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -17,6 +16,17 @@
 
     <!-- Font Awesome -->
     <script src="https://kit.fontawesome.com/90c0082b73.js" crossorigin="anonymous"></script>
+    
+    <?php
+	 $usuario = sel('usuarios', ['id' => user_info('id')], false, 1);
+ 	 $escalaFonte = (int) ($usuario[0]['escala_fonte'] ?? 100);
+ 	 ?>
+	
+	 <style>
+	     :root {
+	         --odin-font-scale: <?= $escalaFonte ?>%;
+	     }
+	 </style>
 </head>
 
 <body>
@@ -36,7 +46,7 @@
             <div class="offcanvas-header border-bottom border-secondary p-3">
                 <h5 class="offcanvas-title" id="tituloSistema">
                     <i class="fa-solid fa-mug-hot"></i>
-                    Odin
+                    Odin<br>
                 </h5>
 
 					<button
@@ -84,7 +94,7 @@
                         <i class="fa-solid fa-users fa-fw me-2"></i>
                         Usuários
                     </a>
-                    <a href="?acessos" class="nav-link text-white">
+                    <a href="?pontosdeacesso" class="nav-link text-white">
                         <i class="fa-solid fa-key fa-fw me-2"></i>
                         Pontos de acesso
                     </a>

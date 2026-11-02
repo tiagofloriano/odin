@@ -1,6 +1,14 @@
 /* BootstrapColors theme: padrao
    Target: Bootstrap 5.3.8
    https://bootstrapcolors.com/ */
+/* Escala global das fontes do Odin */
+:root {
+    --odin-font-scale: 90%;
+}
+
+html {
+    font-size: var(--odin-font-scale);
+}
 
 :root {
   --bs-primary: #6F42C1;

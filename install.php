@@ -64,6 +64,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         senha VARCHAR(255) NOT NULL,
                         pontodeacesso INT(4) NOT NULL,
                         admin TINYINT(1) NOT NULL DEFAULT 0
+                        escala_fonte INT(11) NOT NULL DEFAULT 100
+                        status INT(1) NOT NULL DEFAULT 1
                     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4
                 ");
 

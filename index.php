@@ -50,7 +50,7 @@ if (is_on()) {
     // Carrega a página solicitada
     url($path);
 
-    require $tema . '/fooder.php';
+    require $tema . '/footer.php';
 } else {
     // Apresenta a tela de login para usuários não autenticados.
     require $tema . '/login.php';
