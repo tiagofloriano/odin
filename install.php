@@ -161,7 +161,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 $consulta->execute([
                     'nome' => 'Odin',
-                    'senha' => 'localhost'
+                    'dominio' => 'localhost'
                 ]);
 
                 // Verifica se o usuário administrador já existe.
