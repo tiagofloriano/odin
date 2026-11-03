@@ -87,6 +87,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 							    link TEXT NULL,
 							    menusuperior INT(11) NOT NULL DEFAULT 0,
 							    pontodeacesso INT(11) NULL,
+							    ordem INT(2) NULL DEFAULT 0,
 							    icone VARCHAR(100) NULL
 							) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
                 ");
