@@ -127,7 +127,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 // Cria a tabela de campos de formulários
                 $pdo->exec("
-							CREATE TABLE IF NOT EXISTS formularios (
+							CREATE TABLE IF NOT EXISTS formularios_campos (
 							    id INT AUTO_INCREMENT PRIMARY KEY,
 								 formulario_id int(11) NOT NULL,
 								 campo_destino varchar(100) NOT NULL,
@@ -146,7 +146,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 // Cria a tabela de opcoes campos de formulários do tipo select, radio ou checkbox
                 $pdo->exec("
-							CREATE TABLE IF NOT EXISTS formularios (
+							CREATE TABLE IF NOT EXISTS formularios_campos_opcoes (
 							    id INT AUTO_INCREMENT PRIMARY KEY,
 								 campo_id int(11) DEFAULT NULL,
 								 valor text,
